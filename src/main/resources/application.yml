@@ -1,3 +1,4 @@
+
 server:
   port: 8181
 
@@ -21,3 +22,13 @@ logging.level:
 springdoc:
   swagger-ui:
     path: /myapi.html
+
+jwt:
+  secret: Zx0CqJp/giT2wuHDERLdrMWuaJEw6jaieAKFTgBkq0gQElYsyjGfcEy2SvadtLw4L2Ch2MvA9rUwJTJMJboXvA==
+
+
+
+
+
+
+

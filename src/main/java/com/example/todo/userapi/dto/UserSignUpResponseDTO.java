@@ -25,3 +25,17 @@ public class UserSignUpResponseDTO {
         this.joinDate = user.getJoinDate();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

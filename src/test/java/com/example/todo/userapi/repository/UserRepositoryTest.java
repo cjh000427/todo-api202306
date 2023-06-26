@@ -1,6 +1,7 @@
 package com.example.todo.userapi.repository;
 
 import com.example.todo.userapi.entity.User;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,15 +36,15 @@ class UserRepositoryTest {
         //then
         assertNotNull(saved);
     }
-
+    
     @Test
     @DisplayName("이메일로 회원 조회하기")
     void findEmailTest() {
         //given
         String email = "abc1234@abc.com";
         //when
-        Optional<User> userOptional =
-                userRepository.findByEmail(email);
+        Optional<User> userOptional
+                = userRepository.findByEmail(email);
         //then
         assertTrue(userOptional.isPresent());
         User user = userOptional.get();
@@ -53,9 +54,9 @@ class UserRepositoryTest {
         System.out.println("user = " + user);
         System.out.println("\n\n\n");
     }
-
+    
     @Test
-    @DisplayName("이메일 중복체크를 하면 중복값이 false여야 한다")
+    @DisplayName("이메일 중복체크를 하면 중복값이 false여야 한다.")
     void emailFalse() {
         //given
         String email = "db1234@abc.com";
@@ -63,12 +64,18 @@ class UserRepositoryTest {
         boolean flag = userRepository.existsByEmail(email);
         //then
         assertFalse(flag);
-
     }
 
 
 
+
 }
+
+
+
+
+
+
 
 
 

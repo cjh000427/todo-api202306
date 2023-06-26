@@ -14,6 +14,4 @@ public class TodoModifyRequestDTO {
     private String id;
     private boolean done;
 
-
-
 }
