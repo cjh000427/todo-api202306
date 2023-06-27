@@ -49,7 +49,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 //인가 정보 리스트
                 List<SimpleGrantedAuthority> authorityList
                         = new ArrayList<>();
-                authorityList.add(new SimpleGrantedAuthority(userInfo.getRole().toString()));
+                authorityList.add(new SimpleGrantedAuthority( "ROLE_" + userInfo.getRole().toString()));
 
                 //인증 완료 처리
                 // - 스프링 시큐리티에게 인증정보를 전달해서
@@ -58,7 +58,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                         = new UsernamePasswordAuthenticationToken(
                                 userInfo, // 컨트롤러에서 활용할 유저 정보
                                 null, // 인증된 사용자의 비밀번호 - 보통 널값
-                                authorityList // 인가 정보 (권한 정보)
+                                authorityList // 인가 정보 (권한 정보) (안줘도 괜찮습니다.)
                 );
 
                 //인증 완료 처리시 클라이언트의 요청 정보 세팅
@@ -70,7 +70,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("토큰이 위조 되었습니다.");
+            log.error("토큰이 위조 되었거나 토큰이 만료되었습니다.");
         }
 
         // 필터 체인에 내가 만든 필터 실행 명령

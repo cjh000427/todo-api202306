@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -16,6 +17,8 @@ import org.springframework.web.filter.CorsFilter;
 //@Configuration //설정 클래스 용도로 사용하도록 스프링에 등록하는 아노테이션
 @EnableWebSecurity //시큐리티 설정 파일로 사용할 클래스 선언.
 @RequiredArgsConstructor
+//자동 권한검사를 수행하기 위한 설정.
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
@@ -34,12 +37,14 @@ public class WebSecurityConfig {
                 .and()
                 .csrf().disable()
                 .httpBasic().disable()
-                //세션 인증을 사용하지 않겠다
+                //세션 인증을 사용하지 않겠다 (세션 만들지 말라는 메서드 아래 두 줄)
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 //어떤 요청에서 인증을 안 할 것인지 설정, 언제 할 것인지 설정
                 .authorizeRequests()
+                .antMatchers(HttpMethod.PUT, "/api/auth/promote")
+                .authenticated()
                 .antMatchers("/", "/api/auth/**").permitAll()
 //                .antMatchers(HttpMethod.POST, "api/todos").hasRole("ADMIN"); 어드민만 들어갈 수 있음
                 .anyRequest().authenticated();

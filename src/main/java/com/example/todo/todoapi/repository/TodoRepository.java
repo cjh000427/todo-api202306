@@ -16,4 +16,10 @@ public interface TodoRepository
     @Query("SELECT t FROM Todo t WHERE t.user = :user") // :user => ?1 같음
     List<Todo> findAllByUser(@Param("user") User user); //변수명 같으면 @Param 안붙여도 됨.
 
+    //회원이 작성한 일정의 개수를 리턴
+    @Query("SELECT COUNT(*) FROM Todo t WHERE t.user=:user")
+    int countByUser(@Param("user") User user);
+
+
+
 }
