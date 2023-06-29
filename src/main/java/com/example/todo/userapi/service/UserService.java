@@ -137,6 +137,15 @@ public class UserService {
         return uniqueFileName;
     }
 
+    //프로필 이미지 뽑기
+    public String findProfilePath(String userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow();
+        return uploadRootPath + "/" + user.getProfileImg();
+    }
+
+
+
 
 
 }
